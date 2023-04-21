@@ -1,0 +1,62 @@
+CREATE TABLE Provider (
+    PackageCode int primary key ,
+    AdminName varchar(255),
+    IPAddress varchar(255)
+);
+
+CREATE TABLE Application (
+    AppCode int,
+    AppTheme varchar(255),
+    PackageCode int references Provider(PackageCode)
+);
+
+CREATE TABLE Payment (
+    Cardno int,
+    Accountno varchar(255),
+    AccountType varchar(255),
+    UPIid varchar(255),
+    BankName varchar(255)
+);
+
+//
+    CREATE TABLE Persons (
+    Name varchar(255),
+    DOB date,
+    Age int(3) not null,
+    EmailID varchar(255),
+    Phone int(10) unique
+);
+//
+insert into Provider values (102, 'Balaji','113,87,9,87');
+insert into Provider values (202, 'Dharma','67.98.123.67');
+insert into Provider values (303, 'Warner Brothers','87.234.87.9');
+insert into Provider values (404, 'Universal Studios','87.98.245.71');
+
+
+INSERT into Application values (44, 'Dark',102);
+INSERT into Application values (11, 'Light',202);
+INSERT into Application values (22, 'Dark',303);
+INSERT	into Application values (33, 'Dark',404);
+
+INSERT	into Payment values (3457097878905074,'B87099','Savings',NULL,'Axis');
+INSERT	into Payment values (8765479068905483, 'A65779','Savings', 'lily@okicici','ICICI');
+INSERT	into Payment values (6543907865986799, 'D67805','Savings', 'atharva@okstandard','Standard');
+INSERT  into Payment values (3457097878905074, 'R45986','Current', 'shruti@okdutch','Dutch');
+
+SELECT * FROM Provider;
+SELECT * FROM Application;
+SELECT * FROM Payment;
+
+CREATE SEQUENCE NO_OF_USESRS
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 50
+NOCYCLE
+NOCACHE;
+
+create view  Paymentview as
+select Accountno, AccountType,BankName from Payment
+WITH READ ONLY CONSTRAINT cannot_manipulate_data;
+
+
+create synonym  pt for Payment;
