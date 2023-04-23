@@ -110,3 +110,9 @@ left outer join Application ON Provider.PackageCode=Application.PackageCode;
 
 select * from Provider
 right outer join Application ON Provider.PackageCode=Application.PackageCode;
+
+
+SELECT TO_CHAR 
+    (SYSDATE, 'MM-DD-YYYY HH24:MI:SS') "NOW" 
+     FROM DUAL;
+
