@@ -23,6 +23,9 @@ insert into Provider values (202, 'Dharma','67.98.123.67');
 insert into Provider values (303, 'Warner Brothers','87.234.87.9');
 insert into Provider values (404, 'Universal Studios','87.98.245.71');
 
+
+insert into Provider values (12, 'Balai','113,87,9,8');
+
 SELECT * FROM Provider;
 
 INSERT into Application values (44, 'Dark',102);
@@ -86,20 +89,20 @@ end;
 
 Exec OTT('Atharva');
 
---create or replace function
---return IS
---Packages number;
---Begin
---select count(*) into Packages froom Application;
---return Packages;
---end;
+create or replace function
+return IS
+Packages number;
+Begin
+select count(*) into Packages froom Application;
+return Packages;
+end;
 
---declare 
---total_package number(2);
---begin
---total_package:= count_that();
---dbms_output.put_line('Number of packages'||total_package);
---end;
+declare 
+total_package number(2);
+begin
+total_package:= count_that();
+dbms_output.put_line('Number of packages'||total_package);
+end;
 
 
 select * from Provider
@@ -115,4 +118,8 @@ right outer join Application ON Provider.PackageCode=Application.PackageCode;
 SELECT TO_CHAR 
     (SYSDATE, 'MM-DD-YYYY HH24:MI:SS') "NOW" 
      FROM DUAL;
+
+SELECT * 
+from Provider
+where PackageCode not in  (Select PackageCode from Application);
 
