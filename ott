@@ -86,20 +86,20 @@ end;
 
 Exec OTT('Atharva');
 
-create or replace function
-return IS
-Packages number;
-Begin
-select count(*) into Packages froom Application;
-return Packages;
-end;
+--create or replace function
+--return IS
+--Packages number;
+--Begin
+--select count(*) into Packages froom Application;
+--return Packages;
+--end;
 
-declare 
-total_package number(2);
-begin
-total_package:= count_that();
-dbms_output.put_line('Number of packages'||total_package);
-end;
+--declare 
+--total_package number(2);
+--begin
+--total_package:= count_that();
+--dbms_output.put_line('Number of packages'||total_package);
+--end;
 
 
 select * from Provider
