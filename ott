@@ -18,33 +18,26 @@ CREATE TABLE Payment (
     BankName varchar(255)
 );
 
-//
-    CREATE TABLE Persons (
-    Name varchar(255),
-    DOB date,
-    Age int(3) not null,
-    EmailID varchar(255),
-    Phone int(10) unique
-);
-//
 insert into Provider values (102, 'Balaji','113,87,9,87');
 insert into Provider values (202, 'Dharma','67.98.123.67');
 insert into Provider values (303, 'Warner Brothers','87.234.87.9');
 insert into Provider values (404, 'Universal Studios','87.98.245.71');
 
+SELECT * FROM Provider;
 
 INSERT into Application values (44, 'Dark',102);
 INSERT into Application values (11, 'Light',202);
 INSERT into Application values (22, 'Dark',303);
 INSERT	into Application values (33, 'Dark',404);
 
+
+SELECT * FROM Application;
+
 INSERT	into Payment values (3457097878905074,'B87099','Savings',NULL,'Axis');
 INSERT	into Payment values (8765479068905483, 'A65779','Savings', 'lily@okicici','ICICI');
 INSERT	into Payment values (6543907865986799, 'D67805','Savings', 'atharva@okstandard','Standard');
 INSERT  into Payment values (3457097878905074, 'R45986','Current', 'shruti@okdutch','Dutch');
 
-SELECT * FROM Provider;
-SELECT * FROM Application;
 SELECT * FROM Payment;
 
 CREATE SEQUENCE NO_OF_USESRS
@@ -60,3 +53,60 @@ WITH READ ONLY CONSTRAINT cannot_manipulate_data;
 
 
 create synonym  pt for Payment;
+
+
+DECLARE
+   CURSOR user_cur IS 
+      SELECT  AppCode, AppTheme, PackageCode FROM Application where AppTheme='Dark';
+      
+   v_AppCode Application.AppCode%TYPE;
+   v_AppTheme Application.AppTheme%TYPE;
+   v_PackageCode Application.PackageCode%TYPE;
+BEGIN
+   OPEN user_cur;
+   LOOP
+      FETCH user_cur INTO v_AppCode,v_AppTheme,v_PackageCode ;
+      EXIT WHEN user_cur%NOTFOUND;
+      -- Do something with the retrieved data, such as printing to the console or updating another table
+      DBMS_OUTPUT.PUT_LINE('AppCode: ' || v_AppCode || ', AppTheme: ' || v_AppTheme || ', PackageCode: ' || v_PackageCode );
+   END LOOP;
+   CLOSE user_cur;
+END;
+
+
+create unique index A20 on Provider(IPAddress);
+
+
+create or replace procedure OTT(username in varchar)
+IS
+Begin
+dbms_output.put_line('Hello and welcome '||username);
+dbms_output.put_line('Thankyou for signing in');
+end;
+
+Exec OTT('Atharva');
+
+create or replace function
+return IS
+Packages number;
+Begin
+select count(*) into Packages froom Application;
+return Packages;
+end;
+
+declare 
+total_package number(2);
+begin
+total_package:= count_that();
+dbms_output.put_line('Number of packages'||total_package);
+end;
+
+
+select * from Provider
+full outer join Application ON Provider.PackageCode=Application.PackageCode;
+
+select * from Provider
+left outer join Application ON Provider.PackageCode=Application.PackageCode;
+
+select * from Provider
+right outer join Application ON Provider.PackageCode=Application.PackageCode;
